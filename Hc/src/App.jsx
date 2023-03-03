@@ -9,7 +9,8 @@ import {
   RenderP,
   Tabel,
   TabelDad,
-  BtnSubmit
+  BtnSubmit,
+  RenderPP
 } from "./Styles/index";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -31,12 +32,33 @@ function App() {
   const [formData, setFormData] = useState(null);
   const [showResults, setShowResults] = useState(false);
   const [showContactButton, setShowContactButton] = useState(false);
+  const [desenvolvimento, setDesenvolvimento] = useState("");
 
   function onSubmit(data) {
     setFormData(data);
     localStorage.setItem("formData", JSON.stringify(data));
     const valor = parseInt(data.valor);
     let showContactButton = false;
+    let result = "";
+
+    if (data.area === "Desenvolvimento Web") {
+      if (valor >= 1000 && valor <= 2000) {
+        result = "Web site simples";
+      } else if (valor >= 2000 && valor <= 3500) {
+        result = "Web site Intermediário";
+      } else if (valor >= 3500 && valor <= 4500) {
+        result = "Web site Avançado";
+      }
+    } else if (data.area === "Desenvolvimento Mobile") {
+      if (valor >= 5000 && valor <= 8000) {
+        result = "Aplicativo simples";
+      } else if (valor >= 8000 && valor <= 10000) {
+        result = "Aplicativo Intermediário";
+      } else if (valor >= 10000 && valor <= 15000) {
+        result = "Aplicativo Avançado";
+      }
+    }
+
     if (valor >= 4500 && valor <= 5000) {
       showContactButton = true;
     } else if (valor >= 8000 && valor <= 15000) {
@@ -44,6 +66,7 @@ function App() {
     }
     setShowContactButton(showContactButton);
     setShowResults(true);
+    setDesenvolvimento(result);
   }
 
   useEffect(() => {
@@ -105,7 +128,7 @@ function App() {
                     Olá {formData.nome}, aqui está seu orçamento {formData.area}{" "}
                     no valor de {formData.valor}
                   </RenderP>
-                  
+
                   <button
                     onClick={() => {
                       setShowResults(false);
@@ -116,17 +139,22 @@ function App() {
                   </button>
                 </div>
                 <TabelDad>
-                  <Tabel>{formData.area}</Tabel>
-                  <Tabel>{formData.valor}</Tabel> 
-                  <Tabel>Desenvolvimento simples</Tabel>{" "}
                   <Tabel>
+                    <RenderPP> {formData.area} </RenderPP>{" "}
+                    <RenderPP>{formData.valor}</RenderPP>{" "}
+                    <RenderPP>{desenvolvimento} </RenderPP>
+                  </Tabel>
+
+                  
                     {" "}
                     {showContactButton ? (
-                      <button style={{borderRadius: '8px'}}>Entre em contato</button>
+                      <button style={{ borderRadius: "8px" }}>
+                        Entre em contato
+                      </button>
                     ) : (
                       <button>Solicitar orçamento</button>
                     )}
-                  </Tabel>
+                  
                 </TabelDad>
               </>
             )}

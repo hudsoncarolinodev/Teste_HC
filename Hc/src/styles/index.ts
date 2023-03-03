@@ -49,6 +49,10 @@ color: white;
 export const RenderP = styled.p `
 color: white;
 `
+export const RenderPP = styled.p `
+color: black;
+border: 1px solid black;
+`
 
 
 export const Tabel = styled.div`
@@ -57,6 +61,10 @@ border: 1px solid white;
     color: #0a0a0a;
     background: white;
     border-radius: 8px;
+    display: flex;
+    flex-direction:row;
+    min-width: 350px;
+    gap: 40px;
 `
 
 export const TabelDad = styled.div`
